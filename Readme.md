@@ -1,6 +1,7 @@
 # PhishDetect - Email Phishing Detection Tool
 
-![PhishDetect](https://your-image-link-here.com)  
+![PhishDetect Screenshot](screenshot.png)
+
 
 **PhishDetect** is a command-line tool designed to analyze email or message content for potential phishing threats. It detects malicious links, suspicious keywords, and fraudulent phone numbers, helping users avoid scams.
 
