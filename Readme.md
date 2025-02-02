@@ -21,13 +21,12 @@
 ## 💻 Installation & Usage (Kali Linux)
 ### **1️⃣ Clone the Repository**
 ```bash
- git clone https://github.com/your-username/PhishDetect.git
+ git clone https://github.com/jaganbhasker1122/phishdetect.git
 ```
-👉 Replace `your-username` with your actual GitHub username.
 
 ### **2️⃣ Navigate to the Project Directory**
 ```bash
- cd PhishDetect
+ cd phishdetect
 ```
 
 ### **3️⃣ Install Required Dependencies**
