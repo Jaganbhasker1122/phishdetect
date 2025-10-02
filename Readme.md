@@ -21,7 +21,7 @@
 ## 💻 Installation & Usage (Kali Linux)
 ### **1️⃣ Clone the Repository**
 ```bash
- git clone https://github.com/jaganbhasker1122/phishdetect.git
+ git clone https://github.com/Jaganbhasker1122/phishdetect.git
 ```
 
 ### **2️⃣ Navigate to the Project Directory**
@@ -51,4 +51,5 @@ python3 phishdetect.py
 ```
 
 For any issues or improvements, feel free to contribute! 🚀
+
 
