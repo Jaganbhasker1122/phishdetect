@@ -1,0 +1,20 @@
+# PhishDetect v2.0 - Requirements
+
+# Core dependencies
+termcolor>=1.1.0
+requests>=2.28.0
+
+# Optional: ML support (for v3.0)
+# scikit-learn>=1.0.0
+# xgboost>=1.5.0
+# numpy>=1.21.0
+
+# Optional: Advanced features
+# python-magic>=0.4.24
+# pycurl>=7.44.0
+
+# Development
+pytest>=7.0.0
+black>=22.0.0
+flake8>=4.0.0
+mypy>=0.950

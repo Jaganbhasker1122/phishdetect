@@ -1,0 +1,22 @@
+{
+  "malicious_domains": [
+    {
+      "domain": "paypal-secure.com",
+      "threat_type": "phishing",
+      "confidence": 95,
+      "last_seen": "2025-01-20",
+      "source": "test-feed",
+      "category": "credential-harvesting",
+      "notes": "Phishing domain mimicking PayPal"
+    },
+    {
+      "domain": "support-login.com",
+      "threat_type": "phishing",
+      "confidence": 90,
+      "last_seen": "2025-01-20",
+      "source": "test-feed",
+      "category": "credential-harvesting",
+      "notes": "Fake support login"
+    }
+  ]
+}
