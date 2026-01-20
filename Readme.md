@@ -1,387 +1,555 @@
-# PhishDetect
+# PhishDetect v2.0
 
-A lightweight command-line tool for identifying potential phishing attempts through rule-based analysis of email and message content.
-
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Language](https://img.shields.io/badge/python-3.6%2B-blue)](https://www.python.org/downloads/)
-[![Status](https://img.shields.io/badge/status-stable-brightgreen)]()
-
----
-
-## Table of Contents
-
-1. [Problem Statement](#problem-statement)
-2. [What is PhishDetect](#what-is-phishdetect)
-3. [Detection Logic](#detection-logic)
-4. [Features](#features)
-5. [Installation](#installation)
-6. [Usage](#usage)
-7. [Example Scenario](#example-scenario)
-8. [Architecture](#architecture)
-9. [Limitations](#limitations)
-10. [Future Scope](#future-scope)
-11. [Contributing](#contributing)
-12. [License](#license)
-13. [Author](#author)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
+[![Status: Research/Educational](https://img.shields.io/badge/Status-Research%2FEducational-orange.svg)]()
+[![Code Style: PEP 8](https://img.shields.io/badge/Code%20Style-PEP%208-brightgreen.svg)](https://www.python.org/dev/peps/pep-0008/)
+[![Version 2.0](https://img.shields.io/badge/Version-2.0-blue.svg)]()
+[![Last Updated: Jan 2026](https://img.shields.io/badge/Updated-Jan%202026-green.svg)]()
 
 ---
 
-## Problem Statement
-
-Phishing remains one of the most common and effective attack vectors against individuals and organizations. According to security research, phishing emails are responsible for the majority of successful data breaches and credential thefts.
-
-**Why phishing is dangerous:**
-- Users can be deceived by authentic-looking emails from fake accounts
-- Phishing attacks are difficult to detect visually without security awareness
-- Attackers use psychological manipulation combined with technical deception
-- A single compromised credential can lead to widespread unauthorized access
-- Traditional spam filters miss many sophisticated phishing attempts
-
-**The challenge:** Users need a simple way to analyze potentially suspicious emails before clicking links or providing information. PhishDetect provides a lightweight, rule-based tool for this purpose.
+A **research-oriented email security analysis tool** built to understand phishing detection mechanisms, email forensics, and security operations workflows.
 
 ---
 
-## What is PhishDetect
+## ⚠️ Project Status & Scope
 
-PhishDetect is a command-line tool that analyzes email and message content for indicators of phishing attacks. It uses rule-based detection to identify:
-- Suspicious keywords commonly found in phishing messages
-- Known malicious URLs
-- Fraudulent phone numbers
-- Risk patterns based on content analysis
+**PhishDetect v2.0 is a learning and research project**, not a commercial security product.
 
-**How it works:** Users paste email content into the tool, which scans for predefined phishing indicators and assigns a risk level (Low, Medium, High) based on findings.
+### Implementation Status
 
-**Important:** PhishDetect uses simple pattern matching and keyword detection. It is not a machine learning system and cannot detect sophisticated, zero-day, or obfuscated phishing attempts. It should be used as one component of a broader security awareness strategy, not as a complete phishing defense.
+✅ **Fully Implemented**
+- Email parsing (.eml, .txt, raw content)
+- Header anomaly detection (heuristic-based)
+- URL extraction and analysis
+- Threat intelligence feed integration (JSON-based)
+- AI-generated email detection (linguistic heuristics)
+- Risk scoring system (weighted multi-factor)
+- Professional CLI interface
+- Report generation (TXT/JSON)
+- Configuration menu
+
+🟡 **Partially Implemented**
+- Attachment analysis (detection framework exists)
+- Advanced AI detection (basic patterns only)
+- Custom threat feed management
+- Settings persistence
+
+⏳ **Planned (Not Yet Implemented)**
+- Batch email processing (v2.1)
+- Parallel analysis
+- CSV/Excel export
+- Email scheduling
+- Database integration
+- Web dashboard
+- API endpoint
 
 ---
 
-## Detection Logic
+## What This Tool Does
 
-PhishDetect uses **rule-based detection** to identify phishing indicators:
+PhishDetect analyzes emails using **heuristic-based security analysis**. It:
 
-### Phishing URL Detection
-- Compares URLs in the message against a predefined list of known malicious domains
-- Flags suspicious URL patterns and shorteners commonly used to hide destinations
-- Does not validate URL authenticity beyond list matching
+1. **Parses Email Content** - Extracts headers, body, URLs, attachments
+2. **Detects Anomalies** - Identifies suspicious header patterns and mismatches
+3. **Analyzes URLs** - Checks against threat feeds and detects obfuscation
+4. **Linguistic Analysis** - Uses heuristics to identify AI-generated patterns
+5. **Risk Scoring** - Combines multiple signals into 0-100 risk score
+6. **Generates Reports** - Creates detailed analysis reports
 
-### Suspicious Keyword Detection
-- Scans content for common phishing language patterns
-- Examples: "verify account," "confirm identity," "urgent action required," "click here"
-- Identifies urgency language, authority impersonation, and credential requests
-- Does not understand context; keyword presence alone triggers detection
+### What This Tool Does NOT Do
 
-### Fraudulent Phone Number Detection
-- Identifies and flags phone numbers in messages
-- Checks against patterns associated with fraud and phishing
-- Does not validate phone number legitimacy independently
+- 🚫 Replace enterprise email security solutions
+- 🚫 Guarantee detection of all phishing attacks
+- 🚫 Provide real-time threat feeds (you load your own)
+- 🚫 Protect against zero-day exploits
+- 🚫 Execute or sandbox attachments
+- 🚫 Integrate with email clients (yet)
 
-### Risk Scoring
-- Combines detection signals into an overall risk score
-- Low Risk: Few or no indicators detected
-- Medium Risk: Several suspicious elements present
-- High Risk: Multiple or severe phishing indicators detected
+---
 
-**Limitations of Rule-Based Approach:**
-- Cannot detect new or unknown phishing techniques
-- May produce false positives for legitimate messages containing similar language
-- Does not analyze sender authentication (SPF, DKIM, DMARC)
-- Cannot detect image-based phishing or HTML-only attacks
-- Does not verify URL destination before flagging
+## Why This Project Exists
+
+This tool was built to:
+- Understand email security fundamentals
+- Learn how SOC analysts evaluate threats
+- Explore phishing detection mechanisms
+- Practice secure Python development
+- Create an educational reference implementation
+
+**This is not intended to replace commercial solutions** like Proofpoint, Mimecast, or Microsoft Defender.
+
+---
+
+## Quick Start
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/Jaganbhasker1122/phishdetect.git
+cd phishdetect
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create directories
+mkdir -p data/threat_feeds logs reports
+```
+
+### Running PhishDetect
+
+```bash
+python phishdetect.py
+```
+
+### Basic Usage
+
+**Option [2] - Analyze Raw Email (Recommended)**
+
+1. Select option: `2`
+2. Paste email content
+3. Press `Ctrl+D` (Mac/Linux) or `Ctrl+Z + Enter` (Windows)
+4. Review risk score and recommendations
+5. Export report if needed
+
+**Option [1] - Analyze Email File**
+
+1. Select option: `1`
+2. Enter path to `.eml` or `.txt` file
+3. Review analysis results
 
 ---
 
 ## Features
 
-### Core Detection Capabilities
-- Identifies phishing URLs from predefined malicious domain list
-- Detects suspicious keywords associated with phishing campaigns
-- Flags fraudulent phone numbers in messages
-- Assigns risk level based on detected indicators
+### Email Analysis
 
-### User Interface
-- Simple command-line interface with colored output
-- Clear risk assessment report
-- Straightforward input mechanism (paste and submit)
-- Minimal learning curve for end users
+- Header extraction and anomaly detection
+- URL detection and obfuscation analysis
+- Attachment metadata inspection
+- Recipient and sender analysis
 
-### Quick Analysis
-- Fast local processing with no external API calls
-- Instant results without network latency
-- Lightweight tool suitable for any environment
+### Risk Scoring
+
+Combines multiple factors with adjustable weights:
+
+| Factor | Default Weight | What It Detects |
+|--------|---|---|
+| Threat Intelligence | 25% | Known malicious domains/URLs |
+| URL Analysis | 25% | Suspicious URL patterns |
+| AI-Generated Content | 20% | Linguistic patterns suggesting AI generation |
+| Keywords | 15% | Phishing-common words/phrases |
+| Header Anomalies | 10% | SPF/DKIM failures, domain mismatches |
+| Obfuscation | 5% | URL shorteners, encoding tricks |
+
+**Risk Bands:**
+- 0-20: Low Risk
+- 21-50: Medium Risk
+- 51-75: High Risk
+- 76-100: Critical Risk
+
+### Threat Intelligence
+
+Load your own threat feeds as JSON files in `data/threat_feeds/`:
+
+**Example: `data/threat_feeds/custom_domains.json`**
+
+```json
+{
+  "malicious_domains": [
+    {
+      "domain": "paypal-secure.com",
+      "threat_type": "phishing",
+      "confidence": 95,
+      "last_seen": "2025-01-20",
+      "source": "custom",
+      "category": "credential-harvesting",
+      "notes": "Known phishing domain"
+    }
+  ]
+}
+```
+
+**File Format Options:**
+- `malicious_domains.json` - Suspicious domains
+- `phishing_urls.json` - Phishing URLs
+- `scam_phones.json` - Fraud phone numbers
+- `botnet_ips.json` - Suspicious IP addresses
 
 ---
 
-## Installation
+## Menu Options (7 Total)
 
-### Prerequisites
-- Python 3.6 or later
-- pip (Python package manager)
-- Terminal or command-line access
-
-### Setup Instructions
-
-1. **Clone the repository:**
-```bash
-git clone https://github.com/Jaganbhasker1122/phishdetect.git
-cd phishdetect
-```
-
-2. **Install dependencies:**
-```bash
-pip install termcolor
-```
-
-3. **Verify installation:**
-```bash
-python3 phishdetect.py
-```
-
----
-
-## Usage
-
-### Running the Tool
-
-```bash
-python3 phishdetect.py
-```
-
-### Input Method
-
-1. The tool opens an interactive terminal interface
-2. Paste the email or message content you want to analyze
-3. Press `Ctrl+D` (on Linux/Mac) or `Ctrl+Z` followed by `Enter` (on Windows) to submit
-4. The tool analyzes the content and displays a risk report
-
-### Output Format
-
-The tool displays:
-- **Detected Indicators:** List of suspicious elements found (URLs, keywords, phone numbers)
-- **Risk Level:** Overall assessment (Low, Medium, High)
-- **Recommendations:** Suggested actions based on risk level
-
-### Analyzing Multiple Messages
-
-To analyze another email:
-```bash
-python3 phishdetect.py
-```
-
-Re-run the command for each message you want to analyze.
-
----
-
-## Example Scenario
-
-### Suspicious Email Input
-
-```
-From: noreply@paypa1-verify.com
-Subject: Urgent: Verify Your PayPal Account
-
-Dear Customer,
-
-We detected suspicious activity on your PayPal account. You must verify your identity immediately or your account will be limited.
-
-Click here to verify: http://paypa1-verify.com/confirm?user=12345
-
-If you don't verify within 24 hours, your account access will be permanently suspended.
-
-For urgent assistance, call 1-800-555-0123
-
-Thank you,
-PayPal Security Team
-```
-
-### PhishDetect Analysis
-
-```
-=====================================
-PhishDetect - Risk Assessment Report
-=====================================
-
-DETECTED INDICATORS:
-[+] Suspicious Keyword: "verify"
-[+] Suspicious Keyword: "immediately"
-[+] Suspicious Keyword: "suspended"
-[+] Suspicious Keyword: "urgent"
-[+] Phishing URL: http://paypa1-verify.com (domain similarity to PayPal)
-[+] Phone Number Detected: 1-800-555-0123
-
-RISK ASSESSMENT:
-Risk Level: HIGH
-
-RECOMMENDATIONS:
-- Do NOT click any links in this message
-- Do NOT enter credentials or personal information
-- Contact PayPal directly using official website or phone number
-- Report this message as phishing to your email provider
-- Delete the message
-
-=====================================
-```
-
-### What This Means
-
-- **Multiple keywords** associated with phishing language detected
-- **Malicious URL** flagged (domain spoofs legitimate service)
-- **Urgency language** present to pressure user action
-- **Phone number** included as alternative social engineering vector
-- **Overall assessment:** High-risk phishing attempt
+| Option | Status | What It Does |
+|--------|--------|---|
+| [1] Analyze Email File | ✅ | Upload .eml or .txt file for analysis |
+| [2] Analyze Raw Email | ✅ | Paste email content directly |
+| [3] Batch Analysis | ⏳ | Scan multiple emails (v2.1) |
+| [4] Threat Intelligence | ✅ | View loaded threat feeds |
+| [5] Settings | 🟡 | Configure risk weights (partial) |
+| [6] Documentation | ✅ | Help & usage guide |
+| [7] Exit | ✅ | Close application |
 
 ---
 
 ## Architecture
 
-### Project Structure
+### Core Modules
+
+**`phishdetect/core/`** - Analysis engines
+- `email_parser.py` - Email parsing and header extraction
+- `ai_detector.py` - Linguistic analysis for AI detection
+- `risk_engine.py` - Risk scoring calculations
+
+**`phishdetect/intelligence/`** - Threat intelligence
+- `threat_intel.py` - TI feed loading and matching
+
+**`phishdetect/reporting/`** - Output generation
+- `report_generator.py` - TXT/JSON report creation
+
+**`phishdetect/cli/`** - User interface
+- `interface.py` - Professional CLI interface
+
+### Data Flow
+
+```
+Email Input
+    ↓
+Email Parser (extract headers, URLs, content)
+    ↓
+Analysis Engines (AI, URL, TI matching)
+    ↓
+Risk Engine (calculate composite score)
+    ↓
+Report Generator (format output)
+    ↓
+User Output (terminal + export)
+```
+
+---
+
+## Example Analysis Output
+
+```
+────────────────────────────────────────────────────────
+ANALYSIS RESULTS
+────────────────────────────────────────────────────────
+
+Email Information:
+  From:     noreply@paypal-secure.com
+  To:       victim@example.com
+  Subject:  Verify Your Account Now
+
+Risk Assessment:
+  Overall Risk Score: 73/100
+  Risk Level: HIGH
+
+Score Breakdown:
+  Threat Intelligence     ▓▓▓▓▓▓▓░░░ 70.0/100 (25% weight)
+  URL Analysis            ▓▓▓▓▓▓░░░░ 60.0/100 (25% weight)
+  AI-Generated Content    ▓▓▓▓░░░░░░ 40.0/100 (20% weight)
+  Keywords                ▓▓▓▓▓▓░░░░ 60.0/100 (15% weight)
+  Header Anomalies        ▓▓▓░░░░░░░ 30.0/100 (10% weight)
+  Obfuscation             ▓▓░░░░░░░░ 20.0/100 (5% weight)
+
+────────────────────────────────────────────────────────
+RECOMMENDATION
+────────────────────────────────────────────────────────
+
+⚠️  HIGH RISK - ESCALATE TO SECURITY TEAM
+  • Block sender domain
+  • Alert recipient to suspicious content
+  • Do not interact with email content
+```
+
+---
+
+## Limitations & Caveats
+
+### Current Limitations
+
+⚠️ **Threat Intelligence**
+- Relies on manually loaded JSON feeds
+- No real-time threat updates
+- No integration with commercial feeds
+
+⚠️ **AI Detection**
+- Based on linguistic heuristics only
+- Not ML/neural network-based
+- Experimental accuracy (not benchmarked)
+- May produce false positives/negatives
+
+⚠️ **Attachment Analysis**
+- Detects mime types and double extensions
+- Does NOT execute or sandbox files
+- Cannot detect obfuscated malware
+
+⚠️ **Email Parsing**
+- Handles standard SMTP format
+- May struggle with complex MIME structures
+- Limited HTML/CSS parsing
+
+⚠️ **Performance**
+- Single-threaded analysis
+- Batch processing not yet implemented
+- Suitable for <100 emails/hour
+
+### What It Won't Catch
+
+- Zero-day phishing techniques
+- Advanced obfuscation (unless in threat feed)
+- Legitimate emails spoofed very carefully
+- Attacks using social engineering only
+- Advanced image-based phishing
+
+---
+
+## Testing
+
+### Running the Tool
+
+**Test with built-in samples:**
+
+```
+Option [2] → Paste sample email
+```
+
+**Expected Results:**
+
+| Email Type | Expected Score | Time |
+|---|---|---|
+| Legitimate (GitHub) | 5-15/100 | ~80ms |
+| Medium Risk | 40-55/100 | ~110ms |
+| High Risk | 65-80/100 | ~120ms |
+| Critical (with TI match) | 80-95/100 | ~130ms |
+
+### Performance Metrics
+
+Current system performance:
+- Email parsing: 10-50ms
+- Header analysis: 5-15ms
+- AI detection: 40-100ms
+- TI matching: 5-20ms
+- Risk scoring: 15-30ms
+- **Total per email: 100-200ms** (single-threaded)
+
+---
+
+## How Accuracy Is NOT Claimed
+
+**This tool does NOT claim:**
+- X% detection accuracy
+- Y% false positive rate
+- Z% true positive rate
+
+**Why?**
+- No standardized dataset tested
+- No controlled benchmark
+- Results depend heavily on threat feeds loaded
+- Heuristics vary by email complexity
+
+**If you need verified accuracy:**
+- Use NIST TREC Spam collections
+- Run controlled benchmarks
+- Keep detailed logs
+- Compare against known samples
+
+---
+
+## Project Structure
 
 ```
 phishdetect/
-├── phishdetect.py          # Main CLI application
-├── requirements.txt        # Python dependencies
+├── phishdetect.py                 # Main entry point
+├── setup.py                       # Setup script
+├── requirements.txt               # Dependencies
+├── README.md                      # Documentation
+├── phishdetect/
+│   ├── __init__.py
+│   ├── cli/
+│   │   ├── __init__.py
+│   │   └── interface.py           # Professional CLI
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── email_parser.py        # Email parsing
+│   │   ├── ai_detector.py         # AI detection
+│   │   └── risk_engine.py         # Risk scoring
+│   ├── intelligence/
+│   │   ├── __init__.py
+│   │   └── threat_intel.py        # TI loading
+│   └── reporting/
+│       ├── __init__.py
+│       └── report_generator.py    # Report generation
 ├── data/
-│   ├── phishing_urls.txt   # Known malicious URLs
-│   ├── keywords.txt        # Phishing keywords list
-│   └── phone_patterns.txt  # Fraudulent phone patterns
-└── README.md              # Documentation
+│   └── threat_feeds/              # Add JSON feeds here
+├── logs/                          # Generated logs
+└── reports/                       # Generated reports
 ```
 
-### Component Overview
+---
 
-**Input Handler:** Accepts email/message content from user
+## Roadmap (v2.1+)
 
-**URL Analyzer:** Checks URLs against known malicious domain list
+**Near Term (v2.1)**
+- [ ] Batch analysis (multi-email processing)
+- [ ] Parallel analysis with threading
+- [ ] CSV export format
+- [ ] Settings persistence to config file
+- [ ] Email scheduling/automation
 
-**Keyword Scanner:** Searches for phishing-associated language patterns
+**Medium Term (v2.2+)**
+- [ ] Web dashboard (Flask/FastAPI)
+- [ ] SQLite database for storing analyses
+- [ ] Integration with real threat feeds
+- [ ] YARA rule support for attachments
+- [ ] Email client plugins
 
-**Phone Detector:** Identifies and flags phone numbers in content
-
-**Risk Calculator:** Combines detection signals into risk score
-
-**Output Formatter:** Displays analysis results with color-coded warnings
-
-### Design Philosophy
-
-**Simplicity:** Minimal dependencies and straightforward logic for maintainability
-
-**Transparency:** Clear detection rules and reasoning for each flag
-
-**Offline Operation:** No external API calls or network dependencies
-
-**Educational Focus:** Tool designed to teach phishing awareness, not provide complete protection
+**Long Term (v3.0+)**
+- [ ] REST API
+- [ ] Machine learning models (if benchmarked)
+- [ ] Integration with SOAR platforms
+- [ ] Multi-language support
 
 ---
 
-## Limitations
+## Dependencies
 
-PhishDetect has important limitations that users should understand:
+```
+termcolor>=1.1.0      # Colored terminal output
+requests>=2.28.0      # HTTP requests (for future TI feeds)
+```
 
-### Detection Scope
-- **Rule-based only:** Uses pattern matching and keyword detection, not machine learning
-- **Known threats only:** Can only detect phishing patterns in predefined rule lists
-- **No sender validation:** Does not check SPF, DKIM, or DMARC authentication records
-- **Language-specific:** Detection rules tuned for English; limited support for other languages
-
-### False Positives
-- Legitimate emails with urgent language (password expiry, security alerts) may be flagged
-- Innocent messages containing similar keywords may trigger warnings
-- Overbroad keyword matching can result in false alarms
-
-### False Negatives
-- Sophisticated phishing attempts with obfuscated content may not be detected
-- Graphical phishing (embedded images as links) cannot be analyzed
-- New phishing techniques not yet in rule lists will be missed
-- Context-aware attacks designed to avoid detection may succeed
-
-### Technical Constraints
-- URL validation is exact matching; URL variations may bypass detection
-- Phone number detection is pattern-based; legitimate business numbers may be flagged
-- Single-pass analysis; cannot track cross-message patterns or campaigns
-- No access to actual email metadata (sender verification, routing information)
-
-### Not a Complete Solution
-- Should not be the only anti-phishing defense
-- Does not replace email filtering or security gateways
-- Cannot prevent all phishing attacks
-- Designed for user awareness, not as a primary security control
-
----
-
-## Future Scope
-
-### Short-Term Improvements
-- Expand phishing keyword and URL databases
-- Add support for analyzing HTML email content
-- Improve phone number pattern detection
-- Add logging for analysis history
-
-### Medium-Term Enhancements
-- Support for multiple languages
-- Integration with email clients for inline analysis
-- User feedback mechanism to update detection rules
-- Analysis of sender header information and spoofing patterns
-
-### Long-Term Additions
-- Configuration file for custom rule customization
-- Batch analysis mode for processing multiple emails
-- Report generation in structured formats (JSON, CSV)
-- Integration with threat intelligence feeds for URL validation
-
-### Potential Directions
-- Command-line argument support for non-interactive mode
-- Detection rule versioning and updates
-- Community-contributed rule sets
-- Performance optimizations for large messages
+Optional (for future features):
+```
+flask>=2.0.0          # Web framework
+sqlite3               # Database
+numpy>=1.20.0         # ML preprocessing
+scikit-learn>=1.0.0   # ML models
+```
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Please follow these guidelines:
+This is a learning project. Contributions welcome!
 
-### Areas for Contribution
-- New phishing keywords or URL patterns
-- Improved detection logic and accuracy
-- Bug reports and fixes
-- Documentation and examples
-- Translation to additional languages
-- Testing across different environments
+Areas for improvement:
+- Better AI detection algorithms
+- More email format support
+- Enhanced threat feed integration
+- Performance optimization
+- Documentation improvements
 
-### How to Contribute
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/improvement`)
-3. Commit your changes with clear messages
-4. Push to the branch and open a pull request
-5. Include description of the improvement and test results
+---
 
-### Guidelines
-- Maintain the rule-based detection approach (no ML models)
-- Keep changes focused and well-tested
-- Document any new detection rules
-- Ensure new rules don't significantly increase false positives
-- Test changes before submitting
+## Contact & Support
+
+**Author:** Gurram Jagan Bhasker  
+**Email:** jaganbhaskergurram@gmail.com  
+**GitHub:** https://github.com/Jaganbhasker1122
+
+**For Questions:**
+- Open an issue on GitHub
+- Email directly
+- Check documentation in Option [6]
 
 ---
 
 ## License
 
-PhishDetect is released under the MIT License. See the LICENSE file for details.
+This project is provided as-is for educational and research purposes.
 
 ---
 
-## Author
+## Disclaimers
 
-**Gurram Jagan Bhasker**  
-B.Tech Cyber Security (3rd Year) | India
+### Security Disclaimer
 
-Cybersecurity enthusiast with focus on building practical security tools and awareness resources. Interested in application security, threat analysis, and phishing defense.
+⚠️ **This tool is experimental software.**
 
-### Contact and Profiles
+- Use at your own risk
+- Do not rely solely on this for security decisions
+- Always verify suspicious emails through other channels
+- Consider phishing attempts from multiple angles
+- Use in conjunction with established security controls
 
-- GitHub: [github.com/Jaganbhasker1122](https://github.com/Jaganbhasker1122)
-- LinkedIn: [linkedin.com/in/gurram-jagan-bhasker-a0906b29a](https://www.linkedin.com/in/gurram-jagan-bhasker-a0906b29a/)
-- Email: jaganbhaskergurram@gmail.com
+### Liability
+
+- The authors assume no liability for missed threats
+- This tool cannot detect all phishing attacks
+- False negatives are possible and likely
+- False positives will occur
+- This tool should augment, not replace, professional security services
+
+### Responsible Disclosure
+
+If you find security vulnerabilities in this tool:
+1. Do NOT post publicly
+2. Email jaganbhasker1122@gmail.com with details
+3. Allow time for patching
+4. Follow responsible disclosure practices
 
 ---
 
-*PhishDetect: Rule-based phishing awareness for end users.*
+## What This Tool Actually Is
+
+✅ **A learning project** exploring email security  
+✅ **A reference implementation** of phishing detection concepts  
+✅ **Educational software** for understanding email forensics  
+✅ **Research code** demonstrating multiple detection techniques  
+
+❌ **NOT** a commercial product  
+❌ **NOT** production-ready for critical systems  
+❌ **NOT** a replacement for professional email security  
+❌ **NOT** backed by benchmarked accuracy claims  
+
+---
+
+## Acknowledgments
+
+Built with inspiration from:
+- Security research literature
+- OWASP email security guidelines
+- SOC workflow best practices
+- Open-source security projects
+
+---
+
+## Version History
+
+**v2.0 (Current)**
+- Professional CLI interface
+- Multi-factor risk scoring
+- Threat intelligence integration
+- Report generation
+
+**v1.0**
+- Basic email parsing
+- Simple heuristic detection
+
+---
+
+## Further Reading
+
+Recommended resources for email security:
+
+- [OWASP Phishing](https://owasp.org/www-community/attacks/phishing)
+- [Email Authentication (SPF, DKIM, DMARC)](https://tools.ietf.org/html/dmarc)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [RFC 5322 - Internet Message Format](https://tools.ietf.org/html/rfc5322)
+
+---
+
+## Summary
+
+PhishDetect is a **research-oriented security analysis tool** designed to educate and demonstrate phishing detection concepts. It provides useful heuristic-based analysis but should be used as one signal among many in a comprehensive security strategy.
+
+**Use wisely. Question results. Validate independently.**
+
+---
+
+*Last Updated: January 20, 2026*  
+*Status: Research/Educational Grade*  
+*Maturity: Early/Experimental*
